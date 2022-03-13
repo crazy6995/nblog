@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package api.admin;
+
+option go_package = "nblog/api/admin;admin";
+option java_multiple_files = true;
+option java_package = "api.admin";
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+
+service User {
+  // 创建用户
+  rpc CreateUser (CreateUserRequest) returns (CreateUserReply) {
+    option (google.api.http) = {
+      post: "/v1/user"
+      body: "*"
+    };
+  }
+  //	rpc UpdateUser (UpdateUserRequest) returns (UpdateUserReply);
+  //	rpc DeleteUser (DeleteUserRequest) returns (DeleteUserReply);
+  //	rpc GetUser (GetUserRequest) returns (GetUserReply);
+  //	rpc ListUser (ListUserRequest) returns (ListUserReply);
+}
+
+message CreateUserRequest {
+  string name = 1 [(validate.rules).string = {min_len: 5, max_len: 32}];
+}
+message CreateUserReply {
+  message User {
+    int64 id = 1;
+    string name = 2;
+  }
+
+  User user = 1;
+}
+
+//message UpdateUserRequest {}
+//message UpdateUserReply {}
+//
+//message DeleteUserRequest {}
+//message DeleteUserReply {}
+//
+//message GetUserRequest {}
+//message GetUserReply {}
+//
+//message ListUserRequest {}
+//message ListUserReply {}
