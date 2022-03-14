@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package user.service.v1;
+
+option go_package = "nblog/api/user/service/v1;v1";
+option java_multiple_files = true;
+option java_package = "user.v1";
+
+// 用户服务(internal)
+service User {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserReply);
+  rpc GetUser (GetUserRequest) returns (GetUserReply);
+}
+
+// 性别枚举
+enum Gender {
+  FEMALE = 0; // 女
+  MALE = 1; // 男
+  SECURE = 2; // 保密
+}
+
+message UserDTO {
+  string id = 1;
+  string username = 2;
+  string password = 3;
+  string nickname = 4;
+  Gender gender = 5;
+}
+
+message CreateUserRequest {
+  string username = 1;
+  string password = 2;
+  string nickname = 3;
+  Gender gender = 4;
+}
+message CreateUserReply {
+  string id = 1;
+}
+
+message GetUserRequest {
+  optional string id = 1;
+  optional string username = 2;
+}
+message GetUserReply {
+  UserDTO user = 1;
+}
