@@ -1,4 +1,4 @@
-module nblog
+module github.com/crazy6995/nblog
 
 go 1.16
 
